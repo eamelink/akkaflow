@@ -42,7 +42,7 @@ class UserTaskSpec extends FunSpec with BeforeAndAfter {
       val processDefActor = system.actorOf(Props(classOf[ProcessDefActor], process1), name = "process1")
       processDefActor ? ProcessDefActor.StartProcess()
 
-      val task = probe1.expectMsgPF(500.millis) { case TaskCreated(task) => task }
+      val task = probe1.expectMsgPF(500.millis) { case TaskCreated(task) ⇒ task }
     }
 
     it("sends a TaskCompleted event over the EventStream when the task is completed") {
@@ -52,11 +52,11 @@ class UserTaskSpec extends FunSpec with BeforeAndAfter {
       val processDefActor = system.actorOf(Props(classOf[ProcessDefActor], process1), name = "process1")
       processDefActor ? ProcessDefActor.StartProcess()
 
-      val task = probe1.expectMsgPF(500.millis) { case TaskCreated(task) => task }
+      val task = probe1.expectMsgPF(500.millis) { case TaskCreated(task) ⇒ task }
 
       task.promise.success(())
 
-      val task2 = probe1.expectMsgPF(500.millis) { case TaskCompleted(task) => task }
+      val task2 = probe1.expectMsgPF(500.millis) { case TaskCompleted(task) ⇒ task }
       assert(task == task2)
     }
   }
